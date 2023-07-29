@@ -14,6 +14,6 @@ public interface WebSeriesRepository extends JpaRepository<WebSeries,Integer> {
     WebSeries findBySeriesName(String seriesName);
 
 
-    @Query(value = "Select ws from WebSeries ws where ws.subscriptionType = :subscription and ws.ageLimit < :age")
+    @Query(value = "Select ws from WebSeries ws where ws.subscriptionType = :subscription and ws.ageLimit <= :age")
     List<WebSeries> viewableWebSeries(SubscriptionType subscription, int age);
 }
