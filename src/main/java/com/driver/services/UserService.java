@@ -36,6 +36,9 @@ public class UserService {
         //Hint: Take out all the Webseries from the WebRepository
         Optional<User> optionalUser = userRepository.findById(userId);
         User user = optionalUser.get();
+        if(optionalUser.isEmpty()){
+            return null;
+        }
         List<WebSeries> series = webSeriesRepository.viewableWebSeries(user.getSubscription().getSubscriptionType(),user.getAge());
         return series.size();
     }

@@ -29,6 +29,9 @@ public class WebSeriesService {
         //use function written in Repository Layer for the same
         //Dont forget to save the production and webseries Repo
         Optional<ProductionHouse> houseOptional = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId());
+        if(houseOptional.isEmpty()){
+            return null;
+        }
         ProductionHouse productionHouse = houseOptional.get();
         WebSeries webSeries = webSeriesRepository.findBySeriesName(webSeriesEntryDto.getSeriesName());
         if(webSeries!=null){

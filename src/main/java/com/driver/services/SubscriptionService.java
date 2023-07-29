@@ -28,6 +28,9 @@ public class SubscriptionService {
 
         //Save The subscription Object into the Db and return the total Amount that user has to pay
         Optional<User> optionalUser = userRepository.findById(subscriptionEntryDto.getUserId());
+        if(optionalUser.isEmpty()){
+            return null;
+        }
         User user = optionalUser.get();
         Subscription subscription = SubscriptionTransformer.SubscriptionEntryDtoToSubscription(subscriptionEntryDto);
         subscription.setUser(user);
@@ -42,6 +45,9 @@ public class SubscriptionService {
         //In all other cases just try to upgrade the subscription and tell the difference of price that user has to pay
         //update the subscription in the repository
         Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()){
+            return null;
+        }
         User user = optionalUser.get();
         if(user.getSubscription().getSubscriptionType()==SubscriptionType.ELITE){
             throw new RuntimeException("Already the best Subscription");
