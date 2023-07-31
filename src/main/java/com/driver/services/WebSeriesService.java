@@ -30,7 +30,7 @@ public class WebSeriesService {
         //Dont forget to save the production and webseries Repo
         Optional<ProductionHouse> houseOptional = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId());
         if(houseOptional.isEmpty()){
-            throw new RuntimeException("Production house is not present");
+            throw new Exception("Production house is not present");
         }
         ProductionHouse productionHouse = houseOptional.get();
         WebSeries webSeries = webSeriesRepository.findBySeriesName(webSeriesEntryDto.getSeriesName());
