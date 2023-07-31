@@ -30,7 +30,7 @@ public class WebSeriesService {
         //Dont forget to save the production and webseries Repo
         Optional<ProductionHouse> houseOptional = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId());
         if(houseOptional.isEmpty()){
-            return null;
+            throw new RuntimeException("Production house is not present");
         }
         ProductionHouse productionHouse = houseOptional.get();
         WebSeries webSeries = webSeriesRepository.findBySeriesName(webSeriesEntryDto.getSeriesName());
@@ -39,6 +39,7 @@ public class WebSeriesService {
         }
         webSeries = WebSeriesTransformer.WebSeriesEntryDtoToWebSeries(webSeriesEntryDto);
         webSeries.setProductionHouse(productionHouse);
+        webSeries = webSeriesRepository.save(webSeries);
         productionHouse.getWebSeriesList().add(webSeries);
         double rating = 0.0;
         for(WebSeries ws : productionHouse.getWebSeriesList()){
@@ -47,8 +48,7 @@ public class WebSeriesService {
         rating/=productionHouse.getWebSeriesList().size();
         productionHouse.setRatings(rating);
         ProductionHouse savedProductionHouse = productionHouseRepository.save(productionHouse);
-        List<WebSeries> list = savedProductionHouse.getWebSeriesList();
-        return list.get(list.size()-1).getId();
+        return webSeries.getId();
     }
 
 }

@@ -39,7 +39,7 @@ public class UserService {
         if(optionalUser.isEmpty()){
             return null;
         }
-        List<WebSeries> series = webSeriesRepository.viewableWebSeries(user.getSubscription().getSubscriptionType(),user.getAge());
+        List<WebSeries> series = webSeriesRepository.viewableWebSeries(user.getSubscription().getSubscriptionType(),18);
         return series.size();
     }
 
