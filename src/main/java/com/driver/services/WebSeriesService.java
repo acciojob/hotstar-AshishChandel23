@@ -35,7 +35,7 @@ public class WebSeriesService {
         ProductionHouse productionHouse = houseOptional.get();
         WebSeries webSeries = webSeriesRepository.findBySeriesName(webSeriesEntryDto.getSeriesName());
         if(webSeries!=null){
-            throw new RuntimeException("Series is already present");
+            throw new Exception("Series is already present");
         }
         webSeries = WebSeriesTransformer.WebSeriesEntryDtoToWebSeries(webSeriesEntryDto);
         webSeries.setProductionHouse(productionHouse);
